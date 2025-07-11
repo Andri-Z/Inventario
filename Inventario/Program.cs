@@ -1,3 +1,13 @@
+using Inventario.Context;
+using Inventario.Forms;
+using Inventario.Interfaces;
+using Inventario.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.Configuration;
+
 namespace Inventario
 {
     internal static class Program
@@ -8,10 +18,23 @@ namespace Inventario
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new FrmLogin());
+            //ApplicationConfiguration.Initialize();
+            var host = CreateHostBuilder().Build();
+            var frmServices = host.Services.GetRequiredService<FrmCategorias>();
+
+            Application.Run(frmServices);
         }
+        static IHostBuilder CreateHostBuilder() => Host.CreateDefaultBuilder()
+            .ConfigureAppConfiguration((context, config) =>
+            {
+                config.AddJsonFile("appsettings.json");
+            }).ConfigureServices((context, services) =>
+            {
+                services.AddDbContext<InventarioContext>(options =>
+                    options.UseSqlServer(context.Configuration.GetConnectionString("InventarioDB")));
+
+                services.AddTransient<FrmCategorias>();
+                services.AddTransient<ICategorias, CategoriasServices>();
+            });
     }
 }
