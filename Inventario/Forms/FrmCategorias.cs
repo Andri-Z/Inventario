@@ -21,13 +21,39 @@ namespace Inventario.Forms
             InitializeComponent();
             _categorias = categorias;
         }
-        private async void btnBuscar_Click(object sender, EventArgs e)
+        private void FrmCategorias_Load(object sender, EventArgs e)
+        {
+            
+        }
+        private async void btnMostrar_Click(object sender, EventArgs e)
         {
             var result = await _categorias.GetCategoriasAsync();
             if (result is null || result.Count == 0)
                 MessageBox.Show("No existen categorias para mostrar.",
                     "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            else
+            {
+                InicializarDGV();
+                dgvCategorias.DataSource = result.ToList();
+            }
+        }
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            InicializarDGV();
 
+            var texto = txtBuscar.Text;
+
+            if (texto is null)
+                MessageBox.Show("No se puede realizar esta accion.");
+            else
+            {
+                var result = _categorias.FilterByDescripcionAsync(texto);
+                dgvCategorias.DataSource = result;
+            }
+        }
+        private void InicializarDGV()
+        {
+            dgvCategorias.Columns.Clear();
             dgvCategorias.AutoGenerateColumns = false;
 
             dgvCategorias.Columns.Add(new DataGridViewTextBoxColumn
@@ -38,9 +64,9 @@ namespace Inventario.Forms
             dgvCategorias.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = "Descripcion",
-                DataPropertyName = "Descripcion"
+                DataPropertyName = "Descripcion",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             });
-            dgvCategorias.DataSource = result.ToList();
         }
     }
 }

@@ -13,6 +13,6 @@ namespace Inventario.Interfaces
         Task<List<CategoriasModel>> GetCategoriasAsync();
         Task<CategoriasModel> CreateCategoriaAsync(CategoriasDTO categoria);
         Task<CategoriasModel?> UpdateCategoriaAsync(int id, string descripcion);
-        //Task<CategoriasModel> FilterCategoriasByDescripcionAsync(string descripcion);
+        Task<List<CategoriasModel>> FilterByDescripcionAsync(string descripcion);
     }
 }

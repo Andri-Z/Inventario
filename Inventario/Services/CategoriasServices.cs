@@ -13,10 +13,16 @@ namespace Inventario.Services
             (_context) = (context);
         public async Task<List<CategoriasModel>> GetCategoriasAsync() =>
             await _context.Categorias.ToListAsync();
-        //public async Task<CategoriasModel?> FilterCategoriasByDescripcionAsync(string descripcion)
-        //{
-             
-        //}
+        public async Task<List<CategoriasModel>> FilterByDescripcionAsync(string descripcion)
+        {
+            var result = await _context.Categorias.Where(x => x.Descripcion == descripcion).ToListAsync();
+
+            if (result is not null)
+                return result;
+            else
+                return new();
+        }
+            
         public async Task<CategoriasModel> CreateCategoriaAsync(CategoriasDTO categoria)
         {
             var _categoria = new CategoriasModel
