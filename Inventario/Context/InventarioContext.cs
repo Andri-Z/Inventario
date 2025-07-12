@@ -16,7 +16,7 @@ namespace Inventario.Context
         {
 
         }
-        public DbSet<CategoriasModel>? Categorias;
+        public DbSet<CategoriasModel> Categorias { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CategoriasModel>(options =>
