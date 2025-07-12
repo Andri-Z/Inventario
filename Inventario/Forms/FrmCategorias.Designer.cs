@@ -28,32 +28,109 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
+            label1 = new Label();
+            TabControl = new TabControl();
+            tabPage1 = new TabPage();
+            btnBuscar = new Button();
+            dgvCategorias = new DataGridView();
+            tabPage2 = new TabPage();
+            TabControl.SuspendLayout();
+            tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCategorias).BeginInit();
             SuspendLayout();
             // 
-            // button1
+            // label1
             // 
-            button1.Location = new Point(169, 130);
-            button1.Name = "button1";
-            button1.Size = new Size(188, 58);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            label1.AutoSize = true;
+            label1.Location = new Point(-16, 100);
+            label1.Name = "label1";
+            label1.Size = new Size(0, 41);
+            label1.TabIndex = 0;
+            // 
+            // TabControl
+            // 
+            TabControl.Controls.Add(tabPage1);
+            TabControl.Controls.Add(tabPage2);
+            TabControl.Dock = DockStyle.Fill;
+            TabControl.Location = new Point(0, 0);
+            TabControl.Name = "TabControl";
+            TabControl.SelectedIndex = 0;
+            TabControl.Size = new Size(1316, 1069);
+            TabControl.TabIndex = 1;
+            // 
+            // tabPage1
+            // 
+            tabPage1.Controls.Add(btnBuscar);
+            tabPage1.Controls.Add(dgvCategorias);
+            tabPage1.Location = new Point(10, 58);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(1296, 1001);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Categorias";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btnBuscar
+            // 
+            btnBuscar.Location = new Point(3, 24);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Size = new Size(188, 58);
+            btnBuscar.TabIndex = 1;
+            btnBuscar.Text = "Buscar";
+            btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
+            // 
+            // dgvCategorias
+            // 
+            dgvCategorias.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvCategorias.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            dgvCategorias.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllHeaders;
+            dgvCategorias.BackgroundColor = Color.WhiteSmoke;
+            dgvCategorias.BorderStyle = BorderStyle.None;
+            dgvCategorias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCategorias.Enabled = false;
+            dgvCategorias.Location = new Point(3, 355);
+            dgvCategorias.Name = "dgvCategorias";
+            dgvCategorias.ReadOnly = true;
+            dgvCategorias.RowHeadersWidth = 102;
+            dgvCategorias.Size = new Size(1290, 643);
+            dgvCategorias.TabIndex = 0;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Location = new Point(10, 58);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(1296, 1001);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Nueva";
+            tabPage2.UseVisualStyleBackColor = true;
             // 
             // FrmCategorias
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(button1);
+            ClientSize = new Size(1316, 1069);
+            Controls.Add(TabControl);
+            Controls.Add(label1);
+            MinimumSize = new Size(795, 774);
             Name = "FrmCategorias";
-            Text = "FrmCategorias";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Categorias";
+            TabControl.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvCategorias).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private Button button1;
+        private Label label1;
+        private TabControl TabControl;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private DataGridView dgvCategorias;
+        private Button btnBuscar;
     }
 }

@@ -10,8 +10,9 @@ namespace Inventario.Interfaces
 {
     public interface ICategorias
     {
-        Task<List<CategoriasModel>> GetCategorias();
-        Task<CategoriasModel> CreateCategoria(CategoriasDTO categoria);
-        Task<CategoriasModel?> UpdateCategoria(int id, string descripcion);
+        Task<List<CategoriasModel>> GetCategoriasAsync();
+        Task<CategoriasModel> CreateCategoriaAsync(CategoriasDTO categoria);
+        Task<CategoriasModel?> UpdateCategoriaAsync(int id, string descripcion);
+        //Task<CategoriasModel> FilterCategoriasByDescripcionAsync(string descripcion);
     }
 }
