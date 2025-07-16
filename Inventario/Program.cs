@@ -1,5 +1,6 @@
 using Inventario.Context;
 using Inventario.Forms;
+using Inventario.Forms.SubForms;
 using Inventario.Interfaces;
 using Inventario.Services;
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +35,8 @@ namespace Inventario
                     options.UseSqlServer(context.Configuration.GetConnectionString("InventarioDB")));
 
                 services.AddTransient<FrmCategorias>();
-                services.AddTransient<ICategorias, CategoriasServices>();
+                services.AddTransient<FrmCrearCategorias>();
+                services.AddTransient<ICategorias, CategoriasService>();
             });
     }
 }

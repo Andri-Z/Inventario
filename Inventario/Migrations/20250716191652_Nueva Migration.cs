@@ -5,17 +5,13 @@
 namespace Inventario.Migrations
 {
     /// <inheritdoc />
-    public partial class InventarioDB : Migration
+    public partial class NuevaMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.EnsureSchema(
-                name: "InventarioDB");
-
             migrationBuilder.CreateTable(
                 name: "categorias",
-                schema: "InventarioDB",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -29,7 +25,6 @@ namespace Inventario.Migrations
 
             migrationBuilder.CreateTable(
                 name: "proveedores",
-                schema: "InventarioDB",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -45,7 +40,6 @@ namespace Inventario.Migrations
 
             migrationBuilder.CreateTable(
                 name: "productos",
-                schema: "InventarioDB",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -64,46 +58,55 @@ namespace Inventario.Migrations
                     table.ForeignKey(
                         name: "FK_productos_categorias_idCategoria",
                         column: x => x.idCategoria,
-                        principalSchema: "InventarioDB",
                         principalTable: "categorias",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_productos_proveedores_idProveedor",
                         column: x => x.idProveedor,
-                        principalSchema: "InventarioDB",
                         principalTable: "proveedores",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_categorias_descripcion",
+                table: "categorias",
+                column: "descripcion",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_productos_descripcion",
+                table: "productos",
+                column: "descripcion");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_productos_idCategoria",
-                schema: "InventarioDB",
                 table: "productos",
                 column: "idCategoria");
 
             migrationBuilder.CreateIndex(
                 name: "IX_productos_idProveedor",
-                schema: "InventarioDB",
                 table: "productos",
                 column: "idProveedor");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_proveedores_descripcion",
+                table: "proveedores",
+                column: "descripcion");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "productos",
-                schema: "InventarioDB");
+                name: "productos");
 
             migrationBuilder.DropTable(
-                name: "categorias",
-                schema: "InventarioDB");
+                name: "categorias");
 
             migrationBuilder.DropTable(
-                name: "proveedores",
-                schema: "InventarioDB");
+                name: "proveedores");
         }
     }
 }

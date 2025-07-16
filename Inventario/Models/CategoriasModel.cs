@@ -16,7 +16,6 @@ namespace Inventario.Models
         public int Id { get; set; }
 
         [Column("descripcion")]
-        [Length(2,20, ErrorMessage = "La longitud de la categoria es incorrecta.")]
         public string? Descripcion { get; set; }
         public ICollection<ProductosModel> Productos { get; } = new List<ProductosModel>();
     }

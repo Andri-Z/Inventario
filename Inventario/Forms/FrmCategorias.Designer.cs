@@ -28,19 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             label1 = new Label();
-            TabControl = new TabControl();
-            tabPage1 = new TabPage();
-            txtBuscar = new TextBox();
-            btnBuscar = new Button();
-            btnMostrar = new Button();
             dgvCategorias = new DataGridView();
-            tabPage2 = new TabPage();
             Id = new DataGridViewTextBoxColumn();
             Descripcion = new DataGridViewTextBoxColumn();
-            TabControl.SuspendLayout();
-            tabPage1.SuspendLayout();
+            ContextMenuStrip = new ContextMenuStrip(components);
+            editarMenuItem = new ToolStripMenuItem();
+            eliminarMenuItem = new ToolStripMenuItem();
+            btnMostrar = new Button();
+            btnBuscar = new Button();
+            txtBuscar = new TextBox();
+            btnCreate = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvCategorias).BeginInit();
+            ContextMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -52,94 +53,30 @@
             label1.Size = new Size(0, 15);
             label1.TabIndex = 0;
             // 
-            // TabControl
-            // 
-            TabControl.Controls.Add(tabPage1);
-            TabControl.Controls.Add(tabPage2);
-            TabControl.Dock = DockStyle.Fill;
-            TabControl.Location = new Point(0, 0);
-            TabControl.Margin = new Padding(1);
-            TabControl.Name = "TabControl";
-            TabControl.SelectedIndex = 0;
-            TabControl.Size = new Size(567, 470);
-            TabControl.TabIndex = 1;
-            // 
-            // tabPage1
-            // 
-            tabPage1.Controls.Add(txtBuscar);
-            tabPage1.Controls.Add(btnBuscar);
-            tabPage1.Controls.Add(btnMostrar);
-            tabPage1.Controls.Add(dgvCategorias);
-            tabPage1.Location = new Point(4, 24);
-            tabPage1.Margin = new Padding(1);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(1);
-            tabPage1.Size = new Size(559, 442);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "Categorias";
-            tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // txtBuscar
-            // 
-            txtBuscar.Location = new Point(68, 19);
-            txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(144, 23);
-            txtBuscar.TabIndex = 3;
-            // 
-            // btnBuscar
-            // 
-            btnBuscar.Location = new Point(6, 19);
-            btnBuscar.Margin = new Padding(1);
-            btnBuscar.Name = "btnBuscar";
-            btnBuscar.Size = new Size(58, 23);
-            btnBuscar.TabIndex = 2;
-            btnBuscar.Text = "Buscar";
-            btnBuscar.UseVisualStyleBackColor = true;
-            btnBuscar.Click += btnBuscar_Click;
-            // 
-            // btnMostrar
-            // 
-            btnMostrar.Location = new Point(6, 100);
-            btnMostrar.Margin = new Padding(1);
-            btnMostrar.Name = "btnMostrar";
-            btnMostrar.Size = new Size(117, 28);
-            btnMostrar.TabIndex = 1;
-            btnMostrar.Text = "Mostrar Categorias";
-            btnMostrar.UseVisualStyleBackColor = true;
-            btnMostrar.Click += btnMostrar_Click;
-            // 
             // dgvCategorias
             // 
             dgvCategorias.AllowUserToAddRows = false;
             dgvCategorias.AllowUserToDeleteRows = false;
             dgvCategorias.AllowUserToResizeRows = false;
-            dgvCategorias.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvCategorias.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvCategorias.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvCategorias.BackgroundColor = Color.WhiteSmoke;
             dgvCategorias.BorderStyle = BorderStyle.None;
             dgvCategorias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCategorias.Columns.AddRange(new DataGridViewColumn[] { Id, Descripcion });
-            dgvCategorias.Location = new Point(1, 130);
+            dgvCategorias.ContextMenuStrip = ContextMenuStrip;
+            dgvCategorias.Dock = DockStyle.Bottom;
+            dgvCategorias.Location = new Point(0, 147);
             dgvCategorias.Margin = new Padding(1);
             dgvCategorias.Name = "dgvCategorias";
             dgvCategorias.ReadOnly = true;
             dgvCategorias.RowHeadersVisible = false;
             dgvCategorias.RowHeadersWidth = 102;
             dgvCategorias.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dgvCategorias.Size = new Size(556, 314);
+            dgvCategorias.Size = new Size(567, 323);
             dgvCategorias.TabIndex = 0;
-            // 
-            // tabPage2
-            // 
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Margin = new Padding(1);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(1);
-            tabPage2.Size = new Size(559, 442);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "Nueva";
-            tabPage2.UseVisualStyleBackColor = true;
+            dgvCategorias.CellMouseClick += dgvCategorias_CellMouseClick;
+            dgvCategorias.CellMouseDown += dgvCategorias_CellMouseDown;
             // 
             // Id
             // 
@@ -157,13 +94,79 @@
             Descripcion.Visible = false;
             Descripcion.Width = 75;
             // 
+            // ContextMenuStrip
+            // 
+            ContextMenuStrip.Items.AddRange(new ToolStripItem[] { editarMenuItem, eliminarMenuItem });
+            ContextMenuStrip.Name = "contexMenu";
+            ContextMenuStrip.Size = new Size(118, 48);
+            ContextMenuStrip.Text = "Opciones";
+            // 
+            // editarMenuItem
+            // 
+            editarMenuItem.Name = "editarMenuItem";
+            editarMenuItem.Size = new Size(117, 22);
+            editarMenuItem.Text = "Editar";
+            editarMenuItem.Click += editarMenuItem_Click;
+            // 
+            // eliminarMenuItem
+            // 
+            eliminarMenuItem.Name = "eliminarMenuItem";
+            eliminarMenuItem.Size = new Size(117, 22);
+            eliminarMenuItem.Text = "Eliminar";
+            eliminarMenuItem.Click += eliminarMenuItem_Click;
+            // 
+            // btnMostrar
+            // 
+            btnMostrar.Location = new Point(12, 117);
+            btnMostrar.Margin = new Padding(1);
+            btnMostrar.Name = "btnMostrar";
+            btnMostrar.Size = new Size(117, 28);
+            btnMostrar.TabIndex = 3;
+            btnMostrar.Text = "Mostrar Categorias";
+            btnMostrar.UseVisualStyleBackColor = true;
+            btnMostrar.Click += btnMostrar_Click;
+            // 
+            // btnBuscar
+            // 
+            btnBuscar.Location = new Point(160, 15);
+            btnBuscar.Margin = new Padding(1);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Size = new Size(63, 25);
+            btnBuscar.TabIndex = 2;
+            btnBuscar.Text = "Buscar";
+            btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
+            // 
+            // txtBuscar
+            // 
+            txtBuscar.Location = new Point(12, 15);
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.Size = new Size(144, 23);
+            txtBuscar.TabIndex = 1;
+            // 
+            // btnCreate
+            // 
+            btnCreate.Location = new Point(452, 12);
+            btnCreate.Margin = new Padding(1);
+            btnCreate.Name = "btnCreate";
+            btnCreate.Size = new Size(105, 26);
+            btnCreate.TabIndex = 4;
+            btnCreate.Text = "Nueva Categoria";
+            btnCreate.UseVisualStyleBackColor = true;
+            btnCreate.Click += btnCreate_Click;
+            // 
             // FrmCategorias
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             ClientSize = new Size(567, 470);
-            Controls.Add(TabControl);
+            Controls.Add(btnCreate);
+            Controls.Add(txtBuscar);
+            Controls.Add(btnBuscar);
+            Controls.Add(btnMostrar);
             Controls.Add(label1);
+            Controls.Add(dgvCategorias);
             Margin = new Padding(1);
             MaximizeBox = false;
             MaximumSize = new Size(583, 509);
@@ -172,10 +175,8 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Categorias";
             Load += FrmCategorias_Load;
-            TabControl.ResumeLayout(false);
-            tabPage1.ResumeLayout(false);
-            tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCategorias).EndInit();
+            ContextMenuStrip.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -183,14 +184,15 @@
         #endregion
 
         private Label label1;
-        private TabControl TabControl;
-        private TabPage tabPage1;
-        private TabPage tabPage2;
         private DataGridView dgvCategorias;
+        private DataGridViewTextBoxColumn Id;
+        private DataGridViewTextBoxColumn Descripcion;
         private Button btnMostrar;
         private Button btnBuscar;
         private TextBox txtBuscar;
-        private DataGridViewTextBoxColumn Id;
-        private DataGridViewTextBoxColumn Descripcion;
+        private Button btnCreate;
+        private ContextMenuStrip ContextMenuStrip;
+        private ToolStripMenuItem editarMenuItem;
+        private ToolStripMenuItem eliminarMenuItem;
     }
 }

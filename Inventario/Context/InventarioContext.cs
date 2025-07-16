@@ -21,8 +21,10 @@ namespace Inventario.Context
         {
             modelBuilder.Entity<CategoriasModel>(options =>
             {
-                options.ToTable("categorias", schema: "InventarioDB");
-                
+                options.ToTable("categorias");
+
+                options.HasIndex(c => c.Descripcion).IsUnique();
+
                 options.HasKey(c => c.Id);
                 options.Property(c => c.Id)
                         .ValueGeneratedOnAdd();
@@ -33,8 +35,10 @@ namespace Inventario.Context
             });
             modelBuilder.Entity<ProveedoresModel>(options =>
             {
-                options.ToTable("proveedores", schema: "InventarioDB");
-                
+                options.ToTable("proveedores");
+
+                options.HasIndex(c => c.Descripcion);
+
                 options.HasKey(c => c.Id);
                 options.Property(c => c.Id)
                         .ValueGeneratedOnAdd();
@@ -53,9 +57,11 @@ namespace Inventario.Context
             });
             modelBuilder.Entity<ProductosModel>(options =>
             {
-                options.ToTable("productos", schema: "InventarioDB");
+                options.ToTable("productos");
                 options.ToTable(tb => tb.HasCheckConstraint("ck_costo", "[costo] >= 0"));
                 options.ToTable(tb => tb.HasCheckConstraint("ck_precioUnitario", "[precio_unitario] >= 0"));
+
+                options.HasIndex(c => c.Descripcion);
 
                 options.HasKey(c=>c.Id);
                 options.Property(c => c.Id)

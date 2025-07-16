@@ -38,7 +38,10 @@ namespace Inventario.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("categorias", "InventarioDB");
+                    b.HasIndex("Descripcion")
+                        .IsUnique();
+
+                    b.ToTable("categorias", (string)null);
                 });
 
             modelBuilder.Entity("Inventario.Models.ProductosModel", b =>
@@ -74,11 +77,13 @@ namespace Inventario.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Descripcion");
+
                     b.HasIndex("IdCategoria");
 
                     b.HasIndex("IdProveedor");
 
-                    b.ToTable("productos", "InventarioDB", t =>
+                    b.ToTable("productos", null, t =>
                         {
                             t.HasCheckConstraint("ck_costo", "[costo] >= 0");
 
@@ -113,7 +118,9 @@ namespace Inventario.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("proveedores", "InventarioDB");
+                    b.HasIndex("Descripcion");
+
+                    b.ToTable("proveedores", (string)null);
                 });
 
             modelBuilder.Entity("Inventario.Models.ProductosModel", b =>
