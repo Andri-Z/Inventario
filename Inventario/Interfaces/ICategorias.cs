@@ -13,5 +13,6 @@ namespace Inventario.Interfaces
         Task<CategoriasModel?> CreateCategoriaAsync(string descripcion);
         Task<CategoriasModel?> UpdateCategoriaAsync(int id, string descripcion);
         Task<List<CategoriasModel>?> FilterByDescripcionAsync(string descripcion);
+        Task<bool> DeleteCategoriaAsync(int id);
     }
 }

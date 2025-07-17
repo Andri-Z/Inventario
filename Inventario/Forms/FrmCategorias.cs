@@ -25,15 +25,12 @@ namespace Inventario.Forms
         }
         private async void btnMostrar_Click(object sender, EventArgs e)
         {
-            var result = await _categorias.GetCategoriasAsync();
-            if (result is null || result.Count == 0)
+            var categorias = await _categorias.GetCategoriasAsync();
+            if (categorias is null || categorias.Count == 0)
                 MessageBox.Show("No existen categorias para mostrar.",
-                    "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                    "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             else
-            {
-                InicializarDGV();
-                dgvCategorias.DataSource = result.ToList();
-            }
+                ShowCategorias(categorias!);
         }
         private async void btnBuscar_Click(object sender, EventArgs e)
         {
@@ -47,11 +44,13 @@ namespace Inventario.Forms
                 return;
             }
 
-            var result = await _categorias.FilterByDescripcionAsync(descripcion);
-
+            var categorias = await _categorias.FilterByDescripcionAsync(descripcion);
+            ShowCategorias(categorias!);
+        }
+        private void ShowCategorias(List<CategoriasModel> categorias)
+        {
             InicializarDGV();
-            dgvCategorias.DataSource = result;
-
+            dgvCategorias.DataSource = categorias!.ToList();
         }
         private void InicializarDGV()
         {
@@ -70,7 +69,6 @@ namespace Inventario.Forms
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             });
         }
-
         private void btnCreate_Click(object sender, EventArgs e)
         {
             FrmCrearCategorias frmCrear = new(_categorias);
@@ -80,40 +78,47 @@ namespace Inventario.Forms
         {
 
         }
-
         private void dgvCategorias_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
-           
+
         }
         private void editarMenuItem_Click(object sender, EventArgs e)
         {
-            
+
 
         }
-        private void eliminarMenuItem_Click(object sender, EventArgs e)
+        private async void eliminarMenuItem_Click(object sender, EventArgs e)
         {
-            //var id = ObtenerId();
-            var id = ObtenerId();
-            var descripcion = dgvCategorias.CurrentRow.Cells[0]?.Value.ToString();
+            var descripcion = dgvCategorias.CurrentRow.Cells[1]?.Value.ToString();
+            if (MessageBox.Show($"¿Seguro que desea eliminar la categoria {descripcion}?","Mensaje",
+                MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.No)
+                return;
 
-            var categorias = new CategoriasModel
+            var id = ParserId();
+
+            if (id == 0)
+                return;
+
+            var result = await _categorias.DeleteCategoriaAsync(id);
+            if (result == false)
             {
-                Id = id,
-                Descripcion = descripcion
-            };
-
+                MessageBox.Show("Ha ocurrido un error durante la operacion", "Mensaje",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            ShowCategorias(await _categorias.GetCategoriasAsync());
         }
 
         private void dgvCategorias_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && e.RowIndex > 0)
-            {
-                dgvCategorias.ClearSelection();
-                dgvCategorias.Rows[e.RowIndex].Selected = true;
-                dgvCategorias.CurrentCell = dgvCategorias.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            }
+            //if (e.Button == MouseButtons.Right && e.RowIndex > 0)
+            //{
+            //    dgvCategorias.ClearSelection();
+            //    dgvCategorias.Rows[e.RowIndex].Selected = true;
+            //    dgvCategorias.CurrentCell = dgvCategorias.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            //}
         }
-        public int ObtenerId()
+        public int ParserId()
         {
             if (dgvCategorias.SelectedCells.Count > 0 &&
                     dgvCategorias.SelectedCells.Count < 2)
@@ -123,6 +128,10 @@ namespace Inventario.Forms
                     return _id;
             }
             return 0;
+        }
+        private void ContextMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }

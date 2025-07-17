@@ -73,10 +73,16 @@ namespace Inventario.Services
 
             return categoriaExist;
         }
-        public async bool DeleteCategoriaAsync(CategoriasModel categoriasModel)
+        public async Task<bool> DeleteCategoriaAsync(int id)
         {
-            await _context.Categorias.Remove(categoriasModel);
-
+            var categoriasModel = await _context.Categorias.FindAsync(id);
+            if (categoriasModel != null)
+            {
+                _context.Categorias.Remove(categoriasModel);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
     }
 }
