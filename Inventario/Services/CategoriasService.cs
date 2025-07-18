@@ -29,7 +29,6 @@ namespace Inventario.Services
             {
                 throw new Exception("Se ha producido un error al filtrar las categorias.");
             }
-           
         }
         public async Task<CategoriasModel?> CreateCategoriaAsync(string descripcion)
         {
@@ -61,17 +60,27 @@ namespace Inventario.Services
                 throw new Exception("Se ha producido un error al crear la categoria.");
             }
         }
-        public async Task<CategoriasModel?> UpdateCategoriaAsync(int id, string descripcion)
+        public async Task<CategoriasModel?> UpdateCategoriaAsync(string descripcion)
         {
-            var categoriaExist = await _context.Categorias.FindAsync(id);
-            if (categoriaExist is null)
-                return new();
+            try
+            {
+                var exist = await _context.Categorias
+                    .Where(a => a.Descripcion!.ToLower().Contains(descripcion.ToLower()))
+                    .FirstOrDefaultAsync();
 
-            categoriaExist.Descripcion = descripcion;
+                if (exist is not null)
+                    return null;
 
-            await _context.SaveChangesAsync();
 
-            return categoriaExist;
+                await _context.Categorias.AddAsync(exist!);
+                await _context.SaveChangesAsync();
+
+                return exist;
+            }
+            catch
+            {
+                throw new Exception("Ha ocurrrido un error actualizando la categoria");
+            }
         }
         public async Task<bool> DeleteCategoriaAsync(int id)
         {

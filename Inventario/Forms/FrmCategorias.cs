@@ -23,6 +23,7 @@ namespace Inventario.Forms
             InitializeComponent();
             _categorias = categorias;
         }
+        #region Botones
         private async void btnMostrar_Click(object sender, EventArgs e)
         {
             var categorias = await _categorias.GetCategoriasAsync();
@@ -47,45 +48,24 @@ namespace Inventario.Forms
             var categorias = await _categorias.FilterByDescripcionAsync(descripcion);
             ShowCategorias(categorias!);
         }
-        private void ShowCategorias(List<CategoriasModel> categorias)
-        {
-            InicializarDGV();
-            dgvCategorias.DataSource = categorias!.ToList();
-        }
-        private void InicializarDGV()
-        {
-            dgvCategorias.Columns.Clear();
-            dgvCategorias.AutoGenerateColumns = false;
-
-            dgvCategorias.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                HeaderText = "Id",
-                DataPropertyName = "Id"
-            });
-            dgvCategorias.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                HeaderText = "Descripcion",
-                DataPropertyName = "Descripcion",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-            });
-        }
         private void btnCreate_Click(object sender, EventArgs e)
         {
             FrmCrearCategorias frmCrear = new(_categorias);
             frmCrear.Show();
         }
-        private void FrmCategorias_Load(object sender, EventArgs e)
-        {
-
-        }
-        private void dgvCategorias_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
-        {
-
-        }
+        #endregion
+        #region ContextMenuStrip
         private void editarMenuItem_Click(object sender, EventArgs e)
         {
+            FrmCrearCategorias frmEditarCategorias = new(_categorias);
 
+            frmEditarCategorias.btnAgregar.Text = "Editar";
+            frmEditarCategorias.Text = "Editar Categorias";
 
+            var descripcion = dgvCategorias.CurrentRow.Cells[1]?.Value.ToString();
+            frmEditarCategorias.txtAgregar.Text = descripcion;
+
+            frmEditarCategorias.Show();
         }
         private async void eliminarMenuItem_Click(object sender, EventArgs e)
         {
@@ -108,16 +88,8 @@ namespace Inventario.Forms
             }
             ShowCategorias(await _categorias.GetCategoriasAsync());
         }
-
-        private void dgvCategorias_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            //if (e.Button == MouseButtons.Right && e.RowIndex > 0)
-            //{
-            //    dgvCategorias.ClearSelection();
-            //    dgvCategorias.Rows[e.RowIndex].Selected = true;
-            //    dgvCategorias.CurrentCell = dgvCategorias.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            //}
-        }
+        #endregion
+        #region Metodos Auxiliares
         public int ParserId()
         {
             if (dgvCategorias.SelectedCells.Count > 0 &&
@@ -129,9 +101,28 @@ namespace Inventario.Forms
             }
             return 0;
         }
-        private void ContextMenuStrip_Opening(object sender, CancelEventArgs e)
+        private void ShowCategorias(List<CategoriasModel> categorias)
         {
-
+            InicializarDGV();
+            dgvCategorias.DataSource = categorias!.ToList();
         }
+        private void InicializarDGV()
+        {
+            dgvCategorias.Columns.Clear();
+            dgvCategorias.AutoGenerateColumns = false;
+
+            dgvCategorias.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Id",
+                DataPropertyName = "Id"
+            });
+            dgvCategorias.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Descripcion",
+                DataPropertyName = "Descripcion",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            });
+        }
+        #endregion
     }
 }

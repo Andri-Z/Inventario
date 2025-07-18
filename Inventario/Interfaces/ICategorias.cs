@@ -11,7 +11,7 @@ namespace Inventario.Interfaces
     {
         Task<List<CategoriasModel>> GetCategoriasAsync();
         Task<CategoriasModel?> CreateCategoriaAsync(string descripcion);
-        Task<CategoriasModel?> UpdateCategoriaAsync(int id, string descripcion);
+        Task<CategoriasModel?> UpdateCategoriaAsync(string descripcion);
         Task<List<CategoriasModel>?> FilterByDescripcionAsync(string descripcion);
         Task<bool> DeleteCategoriaAsync(int id);
     }

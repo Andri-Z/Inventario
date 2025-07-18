@@ -78,9 +78,8 @@
         }
 
         #endregion
-
-        private Button btnAgregar;
-        private TextBox txtAgregar;
         private Label lblAgregar;
+        public Button btnAgregar;
+        public TextBox txtAgregar;
     }
 }

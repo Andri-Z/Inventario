@@ -47,10 +47,10 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(-17, 101);
-            label1.Margin = new Padding(2, 0, 2, 0);
+            label1.Location = new Point(-7, 37);
+            label1.Margin = new Padding(1, 0, 1, 0);
             label1.Name = "label1";
-            label1.Size = new Size(0, 41);
+            label1.Size = new Size(0, 15);
             label1.TabIndex = 0;
             // 
             // dgvCategorias
@@ -67,17 +67,15 @@
             dgvCategorias.Columns.AddRange(new DataGridViewColumn[] { Id, Descripcion });
             dgvCategorias.ContextMenuStrip = ContextMenuStrip;
             dgvCategorias.Dock = DockStyle.Bottom;
-            dgvCategorias.Location = new Point(0, 397);
-            dgvCategorias.Margin = new Padding(2, 3, 2, 3);
+            dgvCategorias.Location = new Point(0, 162);
+            dgvCategorias.Margin = new Padding(1, 1, 1, 1);
             dgvCategorias.Name = "dgvCategorias";
             dgvCategorias.ReadOnly = true;
             dgvCategorias.RowHeadersVisible = false;
             dgvCategorias.RowHeadersWidth = 102;
             dgvCategorias.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dgvCategorias.Size = new Size(1353, 883);
+            dgvCategorias.Size = new Size(568, 323);
             dgvCategorias.TabIndex = 0;
-            dgvCategorias.CellMouseClick += dgvCategorias_CellMouseClick;
-            dgvCategorias.CellMouseDown += dgvCategorias_CellMouseDown;
             // 
             // Id
             // 
@@ -102,30 +100,29 @@
             ContextMenuStrip.ImageScalingSize = new Size(40, 40);
             ContextMenuStrip.Items.AddRange(new ToolStripItem[] { editarMenuItem, eliminarMenuItem });
             ContextMenuStrip.Name = "contexMenu";
-            ContextMenuStrip.Size = new Size(201, 100);
+            ContextMenuStrip.Size = new Size(118, 48);
             ContextMenuStrip.Text = "Opciones";
-            ContextMenuStrip.Opening += ContextMenuStrip_Opening;
             // 
             // editarMenuItem
             // 
             editarMenuItem.Name = "editarMenuItem";
-            editarMenuItem.Size = new Size(200, 48);
+            editarMenuItem.Size = new Size(117, 22);
             editarMenuItem.Text = "Editar";
             editarMenuItem.Click += editarMenuItem_Click;
             // 
             // eliminarMenuItem
             // 
             eliminarMenuItem.Name = "eliminarMenuItem";
-            eliminarMenuItem.Size = new Size(200, 48);
+            eliminarMenuItem.Size = new Size(117, 22);
             eliminarMenuItem.Text = "Eliminar";
             eliminarMenuItem.Click += eliminarMenuItem_Click;
             // 
             // btnMostrar
             // 
-            btnMostrar.Location = new Point(29, 320);
-            btnMostrar.Margin = new Padding(2, 3, 2, 3);
+            btnMostrar.Location = new Point(12, 117);
+            btnMostrar.Margin = new Padding(1, 1, 1, 1);
             btnMostrar.Name = "btnMostrar";
-            btnMostrar.Size = new Size(284, 77);
+            btnMostrar.Size = new Size(117, 28);
             btnMostrar.TabIndex = 3;
             btnMostrar.Text = "Mostrar Categorias";
             btnMostrar.UseVisualStyleBackColor = true;
@@ -133,10 +130,10 @@
             // 
             // btnBuscar
             // 
-            btnBuscar.Location = new Point(389, 41);
-            btnBuscar.Margin = new Padding(2, 3, 2, 3);
+            btnBuscar.Location = new Point(160, 15);
+            btnBuscar.Margin = new Padding(1, 1, 1, 1);
             btnBuscar.Name = "btnBuscar";
-            btnBuscar.Size = new Size(153, 68);
+            btnBuscar.Size = new Size(63, 25);
             btnBuscar.TabIndex = 2;
             btnBuscar.Text = "Buscar";
             btnBuscar.UseVisualStyleBackColor = true;
@@ -144,18 +141,17 @@
             // 
             // txtBuscar
             // 
-            txtBuscar.Location = new Point(29, 41);
-            txtBuscar.Margin = new Padding(7, 8, 7, 8);
+            txtBuscar.Location = new Point(12, 15);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(344, 47);
+            txtBuscar.Size = new Size(144, 23);
             txtBuscar.TabIndex = 1;
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(1098, 33);
-            btnCreate.Margin = new Padding(2, 3, 2, 3);
+            btnCreate.Location = new Point(453, 15);
+            btnCreate.Margin = new Padding(1, 1, 1, 1);
             btnCreate.Name = "btnCreate";
-            btnCreate.Size = new Size(255, 71);
+            btnCreate.Size = new Size(105, 26);
             btnCreate.TabIndex = 4;
             btnCreate.Text = "Nueva Categoria";
             btnCreate.UseVisualStyleBackColor = true;
@@ -163,24 +159,23 @@
             // 
             // FrmCategorias
             // 
-            AutoScaleDimensions = new SizeF(17F, 41F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            ClientSize = new Size(1338, 1151);
+            ClientSize = new Size(568, 485);
             Controls.Add(btnCreate);
             Controls.Add(txtBuscar);
             Controls.Add(btnBuscar);
             Controls.Add(btnMostrar);
             Controls.Add(label1);
             Controls.Add(dgvCategorias);
-            Margin = new Padding(2, 3, 2, 3);
+            Margin = new Padding(1, 1, 1, 1);
             MaximizeBox = false;
-            MaximumSize = new Size(1370, 1239);
-            MinimumSize = new Size(773, 689);
+            MaximumSize = new Size(584, 524);
+            MinimumSize = new Size(584, 524);
             Name = "FrmCategorias";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Categorias";
-            Load += FrmCategorias_Load;
             ((System.ComponentModel.ISupportInitialize)dgvCategorias).EndInit();
             ContextMenuStrip.ResumeLayout(false);
             ResumeLayout(false);

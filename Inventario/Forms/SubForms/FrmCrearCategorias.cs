@@ -22,6 +22,17 @@ namespace Inventario.Forms.SubForms
 
         private async void btnAgregar_Click(object sender, EventArgs e)
         {
+            if(btnAgregar.Text == "Agregar")
+            {
+                await AgregarCategoriaAsync();
+            }
+            else if(btnAgregar.Text == "Editar")
+            {
+                await EditarCategoriaAsync();
+            }
+        }
+        private async Task AgregarCategoriaAsync()
+        {
             var descripcion = txtAgregar.Text;
 
             if (string.IsNullOrEmpty(descripcion))
@@ -32,15 +43,17 @@ namespace Inventario.Forms.SubForms
 
             var result = await _categorias.CreateCategoriaAsync(descripcion);
             if (result is not null)
-            {
-                MessageBox.Show("Categoria creada satisfactoriamente","Mensaje",
-                    MessageBoxButtons.OK,MessageBoxIcon.Information);
-            }
+                MessageBox.Show("Categoria creada satisfactoriamente", "Mensaje",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
-            {
-                MessageBox.Show("Este producto ya existe.","Mensaje",
-                    MessageBoxButtons.OK,MessageBoxIcon.Stop);
-            }
+                MessageBox.Show("Este producto ya existe.", "Mensaje",
+                    MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        }
+        private async Task EditarCategoriaAsync()
+        {
+            var descripcion = txtAgregar.Text;
+
+            await _categorias.UpdateCategoriaAsync(descripcion);
         }
     }
 }
